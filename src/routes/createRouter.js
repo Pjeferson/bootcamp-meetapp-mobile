@@ -28,7 +28,10 @@ export default (isSigned = false) =>
               activeTintColor: '#fff',
               inactiveTintColor: 'rgba(255, 255, 255, 0.6)',
               style: {
-                backgroundColor: '#8d41a8',
+                backgroundColor: '#2B1A2F',
+                height: 64,
+                padding: 10,
+                borderTopWidth: 0,
               },
             },
           }
