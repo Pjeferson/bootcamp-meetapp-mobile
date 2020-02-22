@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Background from '~/components/Background';
 import Header from '~/components/Header';
