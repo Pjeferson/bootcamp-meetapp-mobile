@@ -1,13 +1,21 @@
-import React from 'react';
-import { View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import React, { useState } from 'react';
 
 import Background from '~/components/Background';
+import Header from '~/components/Header';
 
-// import { Container } from './styles';
+import { Container, MeetupDateSelector } from './styles';
 
 export default function Dashboard() {
-  return <Background />;
+  const [date, setDate] = useState(new Date());
+
+  return (
+    <Background>
+      <Container>
+        <Header />
+        <MeetupDateSelector date={date} onChange={setDate} />
+      </Container>
+    </Background>
+  );
 }
 
 Dashboard.navigationOptions = {
