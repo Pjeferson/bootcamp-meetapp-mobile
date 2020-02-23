@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Background from '~/components/Background';
 import Header from '~/components/Header';
 
-import { Container, MeetupDateSelector } from './styles';
+import { Container, MeetupDateSelector, MeetupsList } from './styles';
 
 export default function Dashboard() {
   const [date, setDate] = useState(new Date());
@@ -14,6 +14,7 @@ export default function Dashboard() {
       <Container>
         <Header />
         <MeetupDateSelector date={date} onChange={setDate} />
+        <MeetupsList />
       </Container>
     </Background>
   );
