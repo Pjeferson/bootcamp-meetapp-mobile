@@ -13,3 +13,5 @@ export const MeetupDateSelector = styled(DateSelector)`
   margin-top: 30px;
   align-self: center;
 `;
+
+export const MeetupsList = styled.FlatList``;
