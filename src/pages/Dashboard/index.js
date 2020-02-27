@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { format, parseISO } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 
 import api from '~/services/api';
 
@@ -35,9 +37,16 @@ export default function Dashboard() {
         params: { date },
       });
 
-      // TODO: data
+      const data = response.data.map(meetup => ({
+        ...meetup,
+        dateFormatted: format(
+          parseISO(meetup.date),
+          "dd 'de' MMMM', às' hh'h'",
+          { locale: pt }
+        ),
+      }));
 
-      setMeetups(response.data);
+      setMeetups(data);
     }
     loadMeetups();
   }, [date]);
@@ -72,7 +81,7 @@ export default function Dashboard() {
                 <TitleText>{meetup.title}</TitleText>
                 <DateInfo>
                   <Icon name="event" size={15} color="#999" />
-                  <DateText>{meetup.date}</DateText>
+                  <DateText>{meetup.dateFormatted}</DateText>
                 </DateInfo>
                 <LocationInfo>
                   <Icon name="place" size={15} color="#999" />
