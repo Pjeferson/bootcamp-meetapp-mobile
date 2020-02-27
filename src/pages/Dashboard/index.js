@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import api from '~/services/api';
@@ -34,10 +35,27 @@ export default function Dashboard() {
         params: { date },
       });
 
+      // TODO: data
+
       setMeetups(response.data);
     }
     loadMeetups();
   }, [date]);
+
+  async function handleSubscription(id) {
+    try {
+      await api.post('/subscriptions', {
+        meetup_id: id,
+      });
+
+      setMeetups(meetups.filter(meetup => meetup.id !== id));
+    } catch (error) {
+      Alert.alert(
+        'Erro ao se inscrever',
+        'Não foi possível realizar a sua inscrição no Meetup.'
+      );
+    }
+  }
 
   return (
     <Background>
@@ -65,7 +83,7 @@ export default function Dashboard() {
                   <OrganizerText>Organizador: {meetup.user.name}</OrganizerText>
                 </OrganizerInfo>
 
-                <SubscribeButton onPress={() => {}}>
+                <SubscribeButton onPress={() => handleSubscription(meetup.id)}>
                   <SubscribeButtonText>Realizar inscrição</SubscribeButtonText>
                 </SubscribeButton>
               </Infos>
