@@ -33,20 +33,27 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function loadMeetups() {
-      const response = await api.get('/meetups', {
-        params: { date },
-      });
+      try {
+        const response = await api.get('/meetups', {
+          params: { date },
+        });
 
-      const data = response.data.map(meetup => ({
-        ...meetup,
-        dateFormatted: format(
-          parseISO(meetup.date),
-          "dd 'de' MMMM', às' hh'h'",
-          { locale: pt }
-        ),
-      }));
+        const data = response.data.map(meetup => ({
+          ...meetup,
+          dateFormatted: format(
+            parseISO(meetup.date),
+            "dd 'de' MMMM', às' hh'h'",
+            { locale: pt }
+          ),
+        }));
 
-      setMeetups(data);
+        setMeetups(data);
+      } catch (error) {
+        Alert.alert(
+          'Erro ao carregar Meetups',
+          'Não foi possível carregar os Meetups disponíveis.'
+        );
+      }
     }
     loadMeetups();
   }, [date]);
