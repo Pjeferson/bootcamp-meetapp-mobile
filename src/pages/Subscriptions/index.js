@@ -33,21 +33,28 @@ function Subscriptions({ isFocused }) {
 
   useEffect(() => {
     async function loadMeetups() {
-      const response = await api.get('/subscriptions');
+      try {
+        const response = await api.get('/subscriptions');
 
-      const data = response.data.map(subscription => ({
-        ...subscription,
-        meetup: {
-          ...subscription.meetup,
-          dateFormatted: format(
-            parseISO(subscription.meetup.date),
-            "dd 'de' MMMM', às' hh'h'",
-            { locale: pt }
-          ),
-        },
-      }));
+        const data = response.data.map(subscription => ({
+          ...subscription,
+          meetup: {
+            ...subscription.meetup,
+            dateFormatted: format(
+              parseISO(subscription.meetup.date),
+              "dd 'de' MMMM', às' hh'h'",
+              { locale: pt }
+            ),
+          },
+        }));
 
-      setSubscriptions(data);
+        setSubscriptions(data);
+      } catch (error) {
+        Alert.alert(
+          'Erro ao carregar inscrições',
+          'Não foi possível carregar as suas inscrições.'
+        );
+      }
     }
     loadMeetups();
   }, [isFocused]);
